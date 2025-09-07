@@ -471,8 +471,8 @@ async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
         result = c.fetchone()
         if result and result[0]:
             last_attack = datetime.fromisoformat(result[0])
-            if (current_time - last_attack) < timedelta(minutes=30):
-                time_left = timedelta(minutes=30) - (current_time - last_attack)
+            if (current_time - last_attack) < timedelta(minutes=5):
+                time_left = timedelta(minutes=5) - (current_time - last_attack)
                 minutes, seconds = divmod(time_left.seconds, 60)
                 await update.effective_message.reply_text(
                     f"⏳ **Атака на кулдауні!**\nЗалишилось: *{minutes} хв {seconds} сек*.",
@@ -1412,6 +1412,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
