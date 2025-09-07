@@ -107,7 +107,17 @@ TITLES = {
 
 # Спробуй обидва шляхи
 load_dotenv('/etc/secrets/.env')  # Render Secret Files
-load_dotenv('.env')               # Локальний розробка
+load_dotenv('.env')     
+# Завантажуємо змінні з Secret Files
+load_dotenv('/etc/secrets/.env')
+
+# Читаємо змінні
+TOKEN = os.getenv('TOKEN')
+OWNER_ID = int(os.getenv('OWNER_ID', 6500735335))
+ADMINS = [int(admin) for admin in os.getenv('ADMINS', '6500735335').split(',')]
+
+if not TOKEN:
+    raise ValueError("❌ TOKEN not found! Check Secret Files")# Локальний розробка
 
 TOKEN = os.getenv('TOKEN')
 if not TOKEN:
@@ -1418,5 +1428,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
