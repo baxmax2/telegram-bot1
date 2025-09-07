@@ -2,6 +2,8 @@ import random
 import sqlite3
 import math
 import asyncio
+import os
+from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
@@ -103,6 +105,13 @@ TITLES = {
 
 # Токен вашого бота та власник
 
+# Спробуй обидва шляхи
+load_dotenv('/etc/secrets/.env')  # Render Secret Files
+load_dotenv('.env')               # Локальний розробка
+
+TOKEN = os.getenv('TOKEN')
+if not TOKEN:
+    raise ValueError("❌ TOKEN not found! Check Secret Files")
 
 # Зберігання стану івенту, рейду та гільдійських війн
 EVENT = {"active": False, "type": None, "name": None, "end_time": None, "boss_hp": None, "boss_id": None}
@@ -1409,4 +1418,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
