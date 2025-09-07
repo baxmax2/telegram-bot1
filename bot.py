@@ -102,9 +102,7 @@ TITLES = {
 }
 
 # Токен вашого бота та власник
-TOKEN = "8490730826:AAHH_Eevxu5XzmYh8qjdrZ-4DH3k8ljoLtE"
-OWNER_ID = 6500735335
-ADMINS = [6500735335]
+
 
 # Зберігання стану івенту, рейду та гільдійських війн
 EVENT = {"active": False, "type": None, "name": None, "end_time": None, "boss_hp": None, "boss_id": None}
@@ -1411,3 +1409,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
