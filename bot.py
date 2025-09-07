@@ -239,6 +239,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def collect(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     current_time = datetime.now()
 
     with sqlite3.connect("collection_bot.db") as conn:
@@ -292,6 +301,15 @@ async def collect(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     with sqlite3.connect("collection_bot.db") as conn:
         c = conn.cursor()
         c.execute("SELECT item_type, item_id, rarity FROM collections WHERE user_id = ?", (user_id,))
@@ -319,6 +337,14 @@ async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def all_items(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         user_id = update.effective_user.id
+            # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
         with sqlite3.connect("collection_bot.db") as conn:
             c = conn.cursor()
             c.execute("SELECT item_type, item_id FROM collections WHERE user_id = ?", (user_id,))
@@ -353,6 +379,14 @@ async def all_items(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def start_event(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+    # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     if user_id not in ADMINS:
         await update.message.reply_text("🚫 **Доступ заборонено!** Тільки для адмінів.", parse_mode='Markdown')
         return
@@ -459,6 +493,14 @@ async def start_event(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     current_time = datetime.now()
 
     if not EVENT["active"] or EVENT["type"] != 3 or EVENT["end_time"] <= current_time:
@@ -546,6 +588,14 @@ async def attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def raid_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     current_time = datetime.now()
 
     if not context.args or not context.args[0].isdigit():
@@ -647,6 +697,14 @@ async def raid_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def profile(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         user_id = update.effective_user.id
+            # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
         username = update.effective_user.username or str(user_id)
         
         print(f"Debug: Processing profile for user_id: {user_id}, username: {username}")
@@ -776,6 +834,14 @@ async def leaderboard_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def set_bio(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     if not context.args:
         await update.message.reply_text("❌ **Формат:** `/set_bio <текст>`", parse_mode='Markdown')
         return
@@ -794,6 +860,14 @@ async def set_bio(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def create_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     if not context.args:
         await update.message.reply_text("❌ **Формат:** `/create_guild <назва>`", parse_mode='Markdown')
         return
@@ -819,6 +893,14 @@ async def create_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def join_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     if not context.args or not context.args[0].isdigit():
         await update.message.reply_text("❌ **Формат:** `/join_guild <ID>`", parse_mode='Markdown')
         return
@@ -844,6 +926,14 @@ async def join_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def leave_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     with sqlite3.connect("collection_bot.db") as conn:
         c = conn.cursor()
         c.execute("SELECT guild_id FROM guild_members WHERE user_id = ?", (user_id,))
@@ -868,6 +958,14 @@ async def leave_guild(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def set_co_leader(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     if not context.args:
         await update.message.reply_text("❌ **Формат:** `/set_co_leader <нікнейм/ID>`", parse_mode='Markdown')
         return
@@ -936,6 +1034,14 @@ async def guild_members(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def start_raid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     current_time = datetime.now()
 
     with sqlite3.connect("collection_bot.db") as conn:
@@ -1009,6 +1115,14 @@ async def start_raid(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def guild_war(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+        # ЦЕЙ БЛОК ⬇️
+    with sqlite3.connect("collection_bot.db") as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+        if c.fetchone()[0] == 0:
+            await update.message.reply_text("⚠️ **Спочатку використай /start**")
+            return
+    # ЦЕЙ БЛОК ⬆️
     current_time = datetime.now()
 
     if not context.args or not context.args[0].isdigit():
@@ -1412,6 +1526,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
