@@ -337,14 +337,16 @@ async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def all_items(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         user_id = update.effective_user.id
-            # ЦЕЙ БЛОК ⬇️
-    with sqlite3.connect("collection_bot.db") as conn:
-        c = conn.cursor()
-        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
-        if c.fetchone()[0] == 0:
-            await update.message.reply_text("⚠️ **Спочатку використай /start**")
-            return
-    # ЦЕЙ БЛОК ⬆️
+        
+        # Перевірка чи користувач існує
+        with sqlite3.connect("collection_bot.db") as conn:
+            c = conn.cursor()
+            c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+            if c.fetchone()[0] == 0:
+                await update.message.reply_text("⚠️ **Спочатку використай /start**")
+                return
+
+        # Основний код команди
         with sqlite3.connect("collection_bot.db") as conn:
             c = conn.cursor()
             c.execute("SELECT item_type, item_id FROM collections WHERE user_id = ?", (user_id,))
@@ -1526,6 +1528,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
