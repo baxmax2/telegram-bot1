@@ -699,16 +699,17 @@ async def raid_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def profile(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         user_id = update.effective_user.id
-            # ЦЕЙ БЛОК ⬇️
-    with sqlite3.connect("collection_bot.db") as conn:
-        c = conn.cursor()
-        c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
-        if c.fetchone()[0] == 0:
-            await update.message.reply_text("⚠️ **Спочатку використай /start**")
-            return
-    # ЦЕЙ БЛОК ⬆️
         username = update.effective_user.username or str(user_id)
         
+        # ЦЕЙ БЛОК ⬇️ (виправ відступи!)
+        with sqlite3.connect("collection_bot.db") as conn:
+            c = conn.cursor()
+            c.execute("SELECT COUNT(*) FROM users WHERE user_id = ?", (user_id,))
+            if c.fetchone()[0] == 0:
+                await update.message.reply_text("⚠️ **Спочатку використай /start**")
+                return
+        # ЦЕЙ БЛОК ⬆️
+
         print(f"Debug: Processing profile for user_id: {user_id}, username: {username}")
 
         with sqlite3.connect("collection_bot.db") as conn:
@@ -1528,6 +1529,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
