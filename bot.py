@@ -104,25 +104,9 @@ TITLES = {
 }
 
 # Токен вашого бота та власник
-
-# Спробуй обидва шляхи
-load_dotenv('/etc/secrets/.env')  # Render Secret Files
-load_dotenv('.env')     
-# Завантажуємо змінні з Secret Files
-load_dotenv('/etc/secrets/.env')
-
-# Читаємо змінні
-TOKEN = os.getenv('TOKEN')
-OWNER_ID = int(os.getenv('OWNER_ID', 6500735335))
-ADMINS = [int(admin) for admin in os.getenv('ADMINS', '6500735335').split(',')]
-
-if not TOKEN:
-    raise ValueError("❌ TOKEN not found! Check Secret Files")# Локальний розробка
-
-TOKEN = os.getenv('TOKEN')
-if not TOKEN:
-    raise ValueError("❌ TOKEN not found! Check Secret Files")
-
+TOKEN = "8490730826:AAHH_Eevxu5XzmYh8qjdrZ-4DH3k8ljoLtE"
+OWNER_ID = 6500735335
+ADMINS = [6500735335]
 # Зберігання стану івенту, рейду та гільдійських війн
 EVENT = {"active": False, "type": None, "name": None, "end_time": None, "boss_hp": None, "boss_id": None}
 GUILD_RAIDS = {}
@@ -1428,6 +1412,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
