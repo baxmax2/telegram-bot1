@@ -102,7 +102,7 @@ TITLES = {
 }
 
 # Токен вашого бота та власник
-TOKEN = "8490730826:AAHeJFM178fVUzeazPIAdG7XsNC2PweczuQ"
+TOKEN = "8490730826:AAHH_Eevxu5XzmYh8qjdrZ-4DH3k8ljoLtE"
 OWNER_ID = 6500735335
 ADMINS = [6500735335]
 
@@ -1409,4 +1409,5 @@ def main():
     app.run_polling()
 
 if __name__ == "__main__":
+
     main()
